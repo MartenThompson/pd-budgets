@@ -33,7 +33,7 @@ ui <- fluidPage(
   tags$br(),
   leafletOutput('mainMap'),
   tags$br(),
-  tags$p('Source is availabe', tags$a(href='https://www.google.com', target='_blank', 'here'))
+  tags$p('Code and data availabe on', tags$a(href='https://github.com/MartenThompson/pd-budgets.git', target='_blank', 'GitHub'))
 )
 
 server <- function(input, output, session) {
