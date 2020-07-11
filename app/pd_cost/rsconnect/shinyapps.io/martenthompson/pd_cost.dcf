@@ -5,8 +5,8 @@ account: martenthompson
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2514890
-bundleId: 3360398
+bundleId: 3381035
 url: https://martenthompson.shinyapps.io/pd_cost/
-when: 1594085618.3361
+when: 1594510238.3048
 asMultiple: FALSE
 asStatic: FALSE

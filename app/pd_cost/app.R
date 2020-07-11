@@ -1,16 +1,16 @@
-#https://populardemocracy.org/news-and-publications/congress-must-divest-billion-dollar-police-budget-and-invest-public-education
-# data: https://docs.google.com/spreadsheets/u/0/d/e/2PACX-1vTF6KmXAdiHTaOsIZ4ksk5FBJANHdVdKfJjbr4x6AR0SzdFHkdDXV7Knm4rd4Rkgu1zxUUdknEZ3yTl/pubhtml/sheet?headers=false&gid=687000778
-
-# change to cartogram?
-# https://www.esri.com/arcgis-blog/products/arcgis-online/mapping/how-to-build-a-cartogram-in-microsoft-office-and-arcgis-online/
-
 library(shiny)
 library(leaflet)
+library(DT)
 
-# leaflet tutorial: https://rstudio.github.io/leaflet/
-# leaflet map providers: https://leaflet-extras.github.io/leaflet-providers/preview/
+# Use this R Shiny application to quickly visualize the budget of major cities' police departments.
 
+##################
+##### SETUP ######
+
+# all data used in this application
 dat <- read.csv("data/city_budgets.csv")
+
+# HTML for the little popups on hover
 dat$labels <- lapply(seq(nrow(dat)), function(i) {
   paste0( '<p><strong>', dat[i, "city"], '</strong> (', dat[i, 'year'], ')</p>', 
           '<p>Total Spending: $', format(dat[i, 'tot_pol_spending'], big.mark = ',', trim = TRUE),'</p>', 
@@ -18,11 +18,19 @@ dat$labels <- lapply(seq(nrow(dat)), function(i) {
           '<a href="', dat[i, 'source'], '" target="_blank">Budget Source</a>') 
 })
 
+# pretty dataFrame for table
+dat_pretty <- data.frame('City' = dat$city,
+                         'Year' = dat$year,
+                         'Total Spending' = dat$tot_pol_spending,
+                         'Per-Capita' = dat$per_cap,
+                         check.names = FALSE)
 
-
+# Dropdown choices for users
 displayDDChoices <- list('Per-Capita Cost','Total Budget')
 displayYearChoices <- c(2017,2020)
 
+##################
+####### UI #######
 ui <- fluidPage(
   fluidRow(
     column(4, selectInput(inputId = 'userDisplayChoice', label='Metric', choices = displayDDChoices,
@@ -32,10 +40,15 @@ ui <- fluidPage(
   ),
   tags$br(),
   leafletOutput('mainMap'),
-  tags$br(),
+  tags$p(),
+  fluidRow(column(12,
+                  dataTableOutput('table'))),
   tags$p('Code and data availabe on', tags$a(href='https://github.com/MartenThompson/pd-budgets.git', target='_blank', 'GitHub'))
 )
 
+
+##################
+##### SERVER #####
 server <- function(input, output, session) {
   
   plot_data <- eventReactive(c(input$userDisplayChoice, input$userYear), {
@@ -60,10 +73,18 @@ server <- function(input, output, session) {
                           options = providerTileOptions(minZoom = 2, maxZoom = 7))
     m <- setView(m, lng = -96, lat = 37, zoom = 4)  # initial view
     m <- addCircles(m, data = plot_data(), lat = ~lat_e, lng = ~lon_n, weight = 1, 
-                    radius = ~metric, popup = ~lapply(labels, htmltools::HTML), 
-                    # label = ~lapply(labels, htmltools::HTML), prefer popup
+                    radius = ~metric, popup = ~lapply(labels, htmltools::HTML),
                     color ='red', fillOpacity = 0.5)
   })
+  
+  output$table <- renderDataTable({
+    dt <- datatable(dat_pretty, rownames = FALSE)
+    
+    formatCurrency(dt, columns=c(3,4), digits = 0)
+    }) 
+  # Note: if you just pass renderDataTable a dataframe, it will style this table much differently
+  # and it contains its own options(...) to play with. Otherwise, you do what I did here and 
+  # style everything when you make dt. I'm concerned I won't be able to tweak it as much this way.
 }
 
 shinyApp(ui, server)
