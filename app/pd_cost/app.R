@@ -32,6 +32,10 @@ displayYearChoices <- c(2017,2020)
 ##################
 ####### UI #######
 ui <- fluidPage(
+  tags$head(
+    tags$script(src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.contentWindow.min.js",
+                type="text/javascript")
+  ),
   fluidRow(
     column(4, selectInput(inputId = 'userDisplayChoice', label='Metric', choices = displayDDChoices,
                            selected = displayDDChoices[[1]])),
@@ -43,7 +47,8 @@ ui <- fluidPage(
   tags$p(),
   fluidRow(column(12,
                   dataTableOutput('table'))),
-  tags$p('Code and data availabe on', tags$a(href='https://github.com/MartenThompson/pd-budgets.git', target='_blank', 'GitHub'))
+  tags$p('Code and data availabe on', tags$a(href='https://github.com/MartenThompson/pd-budgets.git', target='_blank', 'GitHub')),
+  HTML('<div data-iframe-height></div>')
 )
 
 
