@@ -1,5 +1,5 @@
 city,lat_e,lon_n,year,tot_pol_spending,perc_gen_fund,per_cap,source,notes
-Atlanta,33.755,-84.39,2017,218300000,29.7,486,,
+Atlanta,33.755,-84.39,2017,218300000,29.7,486,"https://github.com/MartenThompson/pd-budgets/tree/master/sources","https://www.atlantaga.gov/government/departments/finance/budget-fiscal-policy"
 Atlanta,33.755,-84.39,2020,248508776,30.3,490,"https://www.atlantaga.gov/home/showdocument?id=46291",
 Baltimore,39.283333,-76.616667,2017,480700000,25.6,772,,
 Baltimore,39.283333,-76.616667,2020,536376477,26.4,904,"https://bbmr.baltimorecity.gov/sites/default/files/fy21_execsumm_2020-05-06_FINAL.pdf",
