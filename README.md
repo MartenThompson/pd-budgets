@@ -40,13 +40,34 @@ Currently, I have budgets for the following locations/fiscal years:
     <td>Atlanta</td>
   </tr>
   <tr>
+    <td>Baltimore</td>
+  </tr>
+  <tr>
     <td>Chicago</td>
+  </tr>
+  <tr>
+    <td>Detroit</td>
+  </tr>
+  <tr>
+    <td>Houston</td>
+  </tr>
+  <tr>
+    <td>Los Angeles</td>
+  </tr>
+  <tr>
+    <td>Milwaukee</td>
   </tr>
   <tr>
     <td>Minneapolis</td>
   </tr>
   <tr>
     <td>New York City</td>
+  </tr>
+  <tr>
+    <td>Nashville</td>
+  </tr>
+  <tr>
+    <td>Oakland</td>
   </tr>
 </table>
 
