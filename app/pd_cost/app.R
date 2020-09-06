@@ -15,7 +15,7 @@ dat$labels <- lapply(seq(nrow(dat)), function(i) {
   paste0( '<p><strong>', dat[i, "city"], '</strong> (', dat[i, 'year'], ')</p>', 
           '<p>Total Spending: $', format(dat[i, 'tot_pol_spending'], big.mark = ',', trim = TRUE),'</p>', 
           '<p>Per-Capita: $', format(dat[i, 'per_cap'], big.mark=',', trim=TRUE), '</p>',
-          '<a href="', dat[i, 'source'], '" target="_blank">Budget Source</a>') 
+          '<a href="https://github.com/MartenThompson/pd-budgets/tree/master/sources" target="_blank">Budget Source</a>') 
 })
 
 # pretty dataFrame for table
